@@ -189,7 +189,7 @@ export function getDefaultModel(): string {
  * Gets the fallback model (used when primary model fails)
  */
 export function getFallbackModel(): string {
-  const fallbackModel = getFallbackModel();
+  const fallbackModel = process.env.FALLBACK_MODEL || DEFAULT_ENV_VALUES.FALLBACK_MODEL;
   return resolveModelName(fallbackModel);
 }
 
