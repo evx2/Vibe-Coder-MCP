@@ -105,9 +105,9 @@ describe('ContextCuratorConfigLoader', () => {
     it('should load LLM configuration successfully', async () => {
       const mockLLMConfig = {
         llm_mapping: {
-          'intent_analysis': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-          'file_discovery': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-          'default_generation': 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+          'intent_analysis': getServiceModel('intent_analysis'),
+          'file_discovery': getServiceModel('context_curator_file_discovery'),
+          'default_generation': getServiceModel('default_generation')
         }
       };
 
@@ -126,7 +126,7 @@ describe('ContextCuratorConfigLoader', () => {
 
       expect(result.success).toBe(true);
       expect(result.warnings).toEqual([]);
-      expect(configLoader.getLLMModel('intent_analysis')).toBe('deepseek/deepseek-r1-0528-qwen3-8b:free');
+      expect(configLoader.getLLMModel('intent_analysis')).toBe(getServiceModel('intent_analysis'));
     });
 
     it('should handle missing LLM config gracefully', async () => {
@@ -137,7 +137,7 @@ describe('ContextCuratorConfigLoader', () => {
       expect(result.success).toBe(true);
       // The config loader handles missing LLM config gracefully without warnings
       expect(result.warnings.length).toBeGreaterThanOrEqual(0);
-      expect(configLoader.getLLMModel('intent_analysis')).toBe('deepseek/deepseek-r1-0528-qwen3-8b:free');
+      expect(configLoader.getLLMModel('intent_analysis')).toBe(getServiceModel('intent_analysis'));
     });
 
     it('should load environment configuration', async () => {
@@ -269,9 +269,9 @@ describe('ContextCuratorConfigLoader', () => {
     beforeEach(async () => {
       const mockLLMConfig = {
         llm_mapping: {
-          'intent_analysis': 'anthropic/claude-3-sonnet',
-          'file_discovery': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-          'default_generation': 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+          'intent_analysis': getServiceModel('intent_analysis'),
+          'file_discovery': getServiceModel('context_curator_file_discovery'),
+          'default_generation': getServiceModel('default_generation')
         }
       };
 
@@ -291,11 +291,11 @@ describe('ContextCuratorConfigLoader', () => {
 
     it('should return specific model for known operations', () => {
       expect(configLoader.getLLMModel('intent_analysis')).toBe('anthropic/claude-3-sonnet');
-      expect(configLoader.getLLMModel('file_discovery')).toBe('deepseek/deepseek-r1-0528-qwen3-8b:free');
+      expect(configLoader.getLLMModel('file_discovery')).toBe(getServiceModel('file_discovery'));
     });
 
     it('should return default model for unknown operations', () => {
-      expect(configLoader.getLLMModel('unknown_operation')).toBe('deepseek/deepseek-r1-0528-qwen3-8b:free');
+      expect(configLoader.getLLMModel('unknown_operation')).toBe(getServiceModel('default_generation'));
     });
 
     it('should return fallback when no LLM config is loaded', () => {
@@ -306,7 +306,7 @@ describe('ContextCuratorConfigLoader', () => {
       // Reset internal state to ensure no LLM config
       (newLoader as any).llmConfig = null;
 
-      expect(newLoader.getLLMModel('intent_analysis')).toBe('deepseek/deepseek-r1-0528-qwen3-8b:free');
+      expect(newLoader.getLLMModel('intent_analysis')).toBe(getServiceModel('intent_analysis'));
     });
   });
 

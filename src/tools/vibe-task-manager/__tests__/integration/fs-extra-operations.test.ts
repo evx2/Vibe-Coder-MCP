@@ -267,7 +267,7 @@ describe('fs-extra File Writing Operations Tests', () => {
         apiKey: 'test-key',
         model: 'test-model',
         defaultModel: 'test-default',
-        perplexityModel: 'test-perplexity'
+        researchModel: 'test-research'
       };
 
       decompositionService = new DecompositionService(mockConfig);

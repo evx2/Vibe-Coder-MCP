@@ -4,6 +4,7 @@
  */
 
 import { Intent, RecognizedIntent, ConfidenceLevel, Entity } from '../types/nl.js';
+import { getDefaultModel, getServiceModel } from '../../../config/model-config.js';
 import { performFormatAwareLlmCall } from '../../../utils/llmHelper.js';
 import { OpenRouterConfig } from '../../../types/workflow.js';
 import { getPromptService } from '../services/prompt-service.js';
@@ -114,8 +115,8 @@ export class LLMFallbackSystem {
       this.openRouterConfig = {
         baseUrl: process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1',
         apiKey: process.env.OPENROUTER_API_KEY || '',
-        defaultModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-        perplexityModel: 'perplexity/llama-3.1-sonar-small-128k-online',
+        defaultModel: getDefaultModel(),
+        researchModel: getServiceModel('research_query_fast'),
         llm_mapping: config.llm.llm_mapping
       };
 

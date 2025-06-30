@@ -13,12 +13,12 @@ export function createMockConfig(overrides?: Partial<OpenRouterConfig>): OpenRou
   return {
     apiKey: 'test-api-key',
     baseUrl: 'https://openrouter.ai/api/v1',
-    defaultModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
+    defaultModel: getDefaultModel(),
     llm_mapping: {
-      'task_decomposition': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-      'atomic_detection': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-      'intent_recognition': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-      'default_generation': 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+      'task_decomposition': getServiceModel('task_decomposition'),
+      'atomic_detection': getServiceModel('atomic_task_detection'),
+      'intent_recognition': getServiceModel('intent_recognition'),
+      'default_generation': getServiceModel('default_generation')
     },
     ...overrides
   };

@@ -1,6 +1,7 @@
 import { performResearchQuery } from '../../../utils/researchHelper.js';
 import { performFormatAwareLlmCall } from '../../../utils/llmHelper.js';
 import { getVibeTaskManagerConfig } from '../utils/config-loader.js';
+import { getDefaultModel, getServiceModel } from '../../../config/model-config.js';
 import type { OpenRouterConfig } from '../../../types/workflow.js';
 import type { AtomicTask } from '../types/task.js';
 import logger from '../../../logger.js';
@@ -709,8 +710,8 @@ Return only the queries, one per line, without numbering or formatting.
         this.openRouterConfig = {
           baseUrl: 'https://openrouter.ai/api/v1',
           apiKey: process.env.OPENROUTER_API_KEY || '',
-          defaultModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-          perplexityModel: 'perplexity/sonar-deep-research'
+          defaultModel: getDefaultModel(),
+          researchModel: getServiceModel('research_query_deep')
         };
       }
     } catch (error) {
@@ -718,8 +719,8 @@ Return only the queries, one per line, without numbering or formatting.
       this.openRouterConfig = {
         baseUrl: 'https://openrouter.ai/api/v1',
         apiKey: process.env.OPENROUTER_API_KEY || '',
-        defaultModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-        perplexityModel: 'perplexity/sonar-deep-research'
+        defaultModel: getDefaultModel(),
+        researchModel: getServiceModel('research_query_deep')
       };
     }
   }
@@ -843,7 +844,7 @@ Return only the queries, one per line, without numbering or formatting.
         metadata: {
           query: request.query,
           timestamp: startTime,
-          model: this.openRouterConfig.perplexityModel || 'perplexity/sonar-deep-research',
+          model: this.openRouterConfig.researchModel || getServiceModel('research_query_deep'),
           qualityScore: qualityAssessment.qualityScore,
           relevanceScore: qualityAssessment.relevanceScore,
           completenessScore: qualityAssessment.completenessScore,

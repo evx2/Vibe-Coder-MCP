@@ -5,6 +5,7 @@ import logger from '../logger.js';
 import { AppError, ApiError, ConfigurationError, ParsingError } from './errors.js';
 import { selectModelForTask } from './configLoader.js';
 import { getPromptOptimizer } from './prompt-optimizer.js';
+import { getDefaultModel, getServiceModel } from '../config/model-config.js';
 
 /**
  * Processes Qwen3 thinking mode responses by extracting actual content
@@ -170,9 +171,8 @@ export async function performDirectLlmCall(
   }
 
   // Select the model using the utility function
-  // Provide a sensible default if no specific model is found or configured
-  const defaultModel = config.defaultModel || "deepseek/deepseek-r1-0528-qwen3-8b:free"; // Use a known free default
-  const modelToUse = selectModelForTask(config, logicalTaskName, defaultModel);
+  // Switch to the new defaultmodel centralized method
+  const modelToUse = getServiceModel(logicalTaskName);
   logger.info({ modelSelected: modelToUse, logicalTaskName, apiKey: config.apiKey?.substring(0, 20) + '...' }, `Selected model for direct LLM call.`);
 
   const requestPayload = {
@@ -1838,6 +1838,3 @@ function legacyNormalizeJsonResponse(rawResponse: string, jobId?: string): strin
   // The caller will attempt to parse it.
   return jsonContent;
 }
-
-// Export the enhanced extractPartialJson function for use in other modules
-export { extractPartialJson };

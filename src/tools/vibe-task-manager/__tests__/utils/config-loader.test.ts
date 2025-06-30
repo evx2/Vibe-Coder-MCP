@@ -36,10 +36,10 @@ describe('ConfigLoader', () => {
     it('should load configuration from existing files successfully', async () => {
       const mockLLMConfig = {
         llm_mapping: {
-          'task_decomposition': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-          'atomic_task_detection': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-          'intent_recognition': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-          'default_generation': 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+          'task_decomposition': getServiceModel('task_decomposition'),
+          'atomic_task_detection': getServiceModel('atomic_task_detection'),
+          'intent_recognition': getServiceModel('intent_recognition'),
+          'default_generation': getDefaultModel()
         }
       };
 
@@ -80,7 +80,7 @@ describe('ConfigLoader', () => {
     it('should handle missing MCP config file', async () => {
       const mockLLMConfig = {
         llm_mapping: {
-          'default_generation': 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+          'default_generation': getDefaultModel()
         }
       };
 
@@ -117,7 +117,7 @@ describe('ConfigLoader', () => {
     it('should return config after loading', async () => {
       const mockLLMConfig = {
         llm_mapping: {
-          'default_generation': 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+          'default_generation': getDefaultModel()
         }
       };
 
@@ -148,7 +148,7 @@ describe('ConfigLoader', () => {
     it('should return a copy to prevent mutations', async () => {
       const mockLLMConfig = {
         llm_mapping: {
-          'default_generation': 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+          'default_generation': getDefaultModel()
         }
       };
 
@@ -181,9 +181,9 @@ describe('ConfigLoader', () => {
     beforeEach(async () => {
       const mockLLMConfig = {
         llm_mapping: {
-          'task_decomposition': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
+          'task_decomposition': getServiceModel('task_decomposition'),
           'atomic_task_detection': 'anthropic/claude-3-sonnet',
-          'default_generation': 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+          'default_generation': getDefaultModel()
         }
       };
 
@@ -208,7 +208,7 @@ describe('ConfigLoader', () => {
 
     it('should return specific model for operation', () => {
       const model = configLoader.getLLMModel('task_decomposition');
-      expect(model).toBe('deepseek/deepseek-r1-0528-qwen3-8b:free');
+      expect(model).toBe(getServiceModel('task_decomposition'));
     });
 
     it('should return different model for different operation', () => {
@@ -218,13 +218,13 @@ describe('ConfigLoader', () => {
 
     it('should fallback to default_generation for unknown operation', () => {
       const model = configLoader.getLLMModel('unknown_operation');
-      expect(model).toBe('deepseek/deepseek-r1-0528-qwen3-8b:free');
+      expect(model).toBe(getServiceModel('default_generation'));
     });
 
-    it('should fallback to hardcoded default when config not loaded', () => {
+    it('should fallback to default when config not loaded', () => {
       const newLoader = new (ConfigLoader as any)();
       const model = newLoader.getLLMModel('task_decomposition');
-      expect(model).toBe('deepseek/deepseek-r1-0528-qwen3-8b:free');
+      expect(model).toBe(getServiceModel('default_generation'));
     });
   });
 
@@ -232,12 +232,12 @@ describe('ConfigLoader', () => {
     it('should validate required LLM mappings are present', async () => {
       const mockLLMConfig = {
         llm_mapping: {
-          'task_decomposition': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-          'atomic_task_detection': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-          'intent_recognition': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-          'task_refinement': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-          'dependency_graph_analysis': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-          'agent_coordination': 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+          'task_decomposition': getServiceModel('task_decomposition'),
+          'atomic_task_detection': getServiceModel('atomic_task_detection'),
+          'intent_recognition': getServiceModel('intent_recognition'),
+          'task_refinement': getServiceModel('task_refinement'),
+          'dependency_graph_analysis': getServiceModel('dependency_graph_analysis'),
+          'agent_coordination': getServiceModel('agent_coordination')
         }
       };
 
@@ -267,7 +267,7 @@ describe('ConfigLoader', () => {
     it('should identify missing LLM mappings', async () => {
       const mockLLMConfig = {
         llm_mapping: {
-          'task_decomposition': 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+          'task_decomposition': getServiceModel('task_decomposition')
           // Missing other required mappings
         }
       };
@@ -301,7 +301,7 @@ describe('ConfigLoader', () => {
     it('should validate MCP registration is correct', async () => {
       const mockLLMConfig = {
         llm_mapping: {
-          'default_generation': 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+          'default_generation': getDefaultModel()
         }
       };
 
@@ -331,7 +331,7 @@ describe('ConfigLoader', () => {
     it('should detect missing MCP registration', async () => {
       const mockLLMConfig = {
         llm_mapping: {
-          'default_generation': 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+          'default_generation': getDefaultModel()
         }
       };
 
@@ -363,7 +363,7 @@ describe('ConfigLoader', () => {
     it('getVibeTaskManagerConfig should load and return config', async () => {
       const mockLLMConfig = {
         llm_mapping: {
-          'default_generation': 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+          'default_generation': getDefaultModel()
         }
       };
 
@@ -394,7 +394,7 @@ describe('ConfigLoader', () => {
       const mockLLMConfig = {
         llm_mapping: {
           'task_decomposition': 'anthropic/claude-3-sonnet',
-          'default_generation': 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+          'default_generation': getDefaultModel()
         }
       };
 

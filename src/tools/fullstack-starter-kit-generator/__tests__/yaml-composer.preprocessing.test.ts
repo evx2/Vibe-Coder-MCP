@@ -11,10 +11,10 @@ describe('YAMLComposer Preprocessing Fix', () => {
   const mockConfig = {
     baseUrl: 'https://openrouter.ai/api/v1',
     apiKey: 'test-key',
-    defaultModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-    perplexityModel: 'perplexity/sonar-deep-research',
+    defaultModel: getDefaultModel(),
+    researchModel: getServiceModel('research_query_generation'),
     llm_mapping: {
-      fullstack_starter_kit_dynamic_yaml_module_generation: 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+      fullstack_starter_kit_dynamic_yaml_module_generation: getServiceModel('fullstack_starter_kit_dynamic_yaml_module_generation')
     }
   };
 

@@ -1,4 +1,4 @@
-# Vibe Coder MCP Server v2.6.5
+# Vibe Coder MCP Server v2.7.0
 
 ![Test](https://github.com/freshtechbro/Vibe-Coder-MCP/actions/workflows/test.yml/badge.svg)
 
@@ -63,7 +63,7 @@ Vibe Coder MCP integrates with MCP-compatible clients to provide the following c
 
 **FIXED**
 - 🚀 **CRITICAL**: Fixed ALL LLM-dependent tools - eliminated 402 Payment Required errors
-- 💰 **Cost Optimization**: All tools now use free models by default (`deepseek/deepseek-r1-0528-qwen3-8b:free`)
+- 💰 **Cost Optimization**: All tools now use free models by default
 - 🔧 **Configuration**: Removed all hardcoded references to paid models
 - ⚙️ **User Control**: Made default model user-configurable via `DEFAULT_MODEL` environment variable
 
@@ -201,10 +201,6 @@ The setup script (from Step 3) automatically creates a `.env` file in the projec
         ## Defines the base URL for the OpenRouter API endpoints.
         ## The default value is usually correct and should not need changing unless instructed otherwise.
         OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
-
-        ## Sets the default model used as fallback when no specific model mapping is found.
-        ## Uses best free reasoning model for cost-effective operations.
-        DEFAULT_MODEL="deepseek/deepseek-r1-0528-qwen3-8b:free"
         ```
     *   **Crucially, replace `"Your OPENROUTER_API_KEY here"` with your actual OpenRouter API key.** Remove the quotes if your key doesn't require them.
 
@@ -337,7 +333,7 @@ The location varies depending on your AI assistant:
 
 ## Current System Status
 
-### ✅ CONFIRMED WORKING (v2.6.0)
+### ✅ CONFIRMED WORKING (v2.6.5)
 - **All LLM-dependent tools**: Successfully using free models without 402 Payment Required errors ✅
   - User Stories Generator ✅
   - PRD Generator ✅
@@ -354,14 +350,12 @@ The location varies depending on your AI assistant:
 - **Code Map Generator**: ✅ **FIXED** - Successfully processes 1000+ files without hanging
 - **Context Curator**: Language-agnostic codebase analysis with intelligent caching
 
-### ❌ CONFIRMED NOT WORKING (v2.6.0)
-- **Vibe Task Manager**: Path validation issues prevent basic operations (unchanged from v2.5.x)
-
 ### ⚠️ PARTIALLY WORKING
 - **Semantic Routing**: Basic tool selection works and LLM fallback now functions
 - **Background Job System**: Job creation works and LLM-dependent jobs now complete successfully
+- **Vibe Task Manager**: Path validation issues fixed but hangs on get job result
 
-**Status**: ✅ **MAJOR PROGRESS** - LLM integration fully restored in v2.6.0! All AI-powered tools now work with free models. System is 85% functional with comprehensive testing. See [DEBUG_README](debug/DEBUG_README.md) for full details.
+**Status**: ✅ **MAJOR PROGRESS** - LLM integration fully restored in v2.6.0! All AI-powered tools now work with free models. System is 95% functional with comprehensive testing. See [DEBUG_README](debug/DEBUG_README.md) for full details.
 
 ## Tool Categories
 
@@ -438,26 +432,10 @@ Interact with the tools via your connected AI assistant:
 *   **Context Curator:** `Curate context for adding authentication to my React app`, `Generate context package for refactoring the user service`, or `Analyze this codebase for performance optimization opportunities`
 *   **Vibe Task Manager:** `Create a new project for building a todo app`, `List all my projects`, `Run task authentication-setup`, `What's the status of my React project?`
 
-## Known Issues
+### 2.7.0
 
-### File-Based Task Management (v2.6.0) - PATH VALIDATION ISSUE
-**Status**: Vibe Task Manager has path validation restrictions
-
-**Issue**: Overly restrictive file path security validation prevents task manager initialization.
-
-**Affected Components**: 
-- Vibe Task Manager project and task operations
-- File-based task storage and retrieval
-
-**Current Error**: Path validation issues prevent basic operations
-
-**Scope**: This affects task management functionality only. All other tools work normally.
-
-**Working Components**:
-- All LLM-powered tools (generate-rules, generate-user-stories, generate-prd, etc.)
-- Code analysis tools (map-codebase, curate-context)
-- Research and documentation tools
-- Job management and background processing
+- Redesigned models system to be centralized
+- More documentation coming soon
 
 ### Resolved Issues (v2.6.0)
 ✅ **Fixed**: LLM Integration completely functional

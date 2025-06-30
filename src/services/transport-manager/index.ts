@@ -1067,9 +1067,15 @@ class TransportManager {
    */
   getStatus(): {
     isStarted: boolean;
+    isConfigured: boolean;
+    startupInProgress: boolean;
     startedServices: string[];
     config: TransportConfig;
     serviceDetails: Record<string, any>;
+    websocket?: { running: boolean; port?: number; path?: string; connections?: number };
+    http?: { running: boolean; port?: number; cors?: boolean };
+    sse?: { running: boolean; connections?: number };
+    stdio?: { running: boolean };
   } {
     const serviceDetails: Record<string, any> = {};
 
@@ -1105,9 +1111,29 @@ class TransportManager {
 
     return {
       isStarted: this.isStarted,
+      isConfigured: true, // Transport manager is always configured after construction
+      startupInProgress: !!this.startupTimestamp && !this.isStarted,
       startedServices: this.startedServices,
       config: this.config,
-      serviceDetails
+      serviceDetails,
+      websocket: this.startedServices.includes('websocket') ? {
+        running: true,
+        port: this.config.websocket.allocatedPort || this.config.websocket.port,
+        path: this.config.websocket.path,
+        connections: websocketServer.getConnectionCount()
+      } : undefined,
+      http: this.startedServices.includes('http') ? {
+        running: true,
+        port: this.config.http.allocatedPort || this.config.http.port,
+        cors: this.config.http.cors
+      } : undefined,
+      sse: this.startedServices.includes('sse') ? {
+        running: true,
+        connections: sseNotifier.getConnectionCount()
+      } : undefined,
+      stdio: this.startedServices.includes('stdio') ? {
+        running: true
+      } : undefined
     };
   }
 

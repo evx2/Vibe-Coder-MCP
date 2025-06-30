@@ -18,7 +18,7 @@ vi.spyOn(logger, 'debug').mockImplementation(() => {});
 vi.spyOn(logger, 'warn').mockImplementation(() => {});
 vi.spyOn(logger, 'error').mockImplementation(() => {});
 
-const mockConfig: OpenRouterConfig = { baseUrl: '', apiKey: '', defaultModel: '', perplexityModel: '' };
+const mockConfig: OpenRouterConfig = { baseUrl: '', apiKey: '', defaultModel: '', researchModel: '' };
 
 // Mock workflow definition content
 const mockWorkflowFileContent = JSON.stringify({

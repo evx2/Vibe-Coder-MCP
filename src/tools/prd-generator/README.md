@@ -95,9 +95,9 @@ The PRD Generator uses models defined in `llm_config.json`:
 ```json
 {
   "llm_mapping": {
-    "prd_research": "perplexity/sonar-deep-research",
-    "prd_generation": "deepseek/deepseek-r1-0528-qwen3-8b:free",
-    "prd_enhancement": "deepseek/deepseek-r1-0528-qwen3-8b:free"
+    "prd_research": getServiceModel('prd_research'),
+    "prd_generation": getServiceModel('prd_generation'),
+    "prd_enhancement": getServiceModel('prd_enhancement')
   }
 }
 ```
@@ -136,7 +136,7 @@ When invoked, this tool performs the following steps:
      * Market analysis and competitive landscape
      * User needs, demographics, and expectations
      * Industry standards, best practices, and common feature sets
-   * Executes these queries in parallel using the configured Perplexity model (`perplexity/sonar-deep-research` via `performResearchQuery`).
+   * Executes these queries in parallel using the configured Research model (getServiceModel('research_query_deep') via `performResearchQuery`).
    * Aggregates the research results into a structured context block.
 3. **Prompt Assembly:** Combines the original product description and the gathered research context into a comprehensive prompt for the main generation model.
 4. **Generation Phase:**

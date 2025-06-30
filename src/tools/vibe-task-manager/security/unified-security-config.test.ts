@@ -5,6 +5,7 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { UnifiedSecurityConfigManager, getUnifiedSecurityConfig } from './unified-security-config.js';
 import { OpenRouterConfig } from '../../../types/workflow.js';
+import { getDefaultModel, getServiceModel } from '../../../config/model-config.js';
 
 describe('UnifiedSecurityConfigManager', () => {
   let configManager: UnifiedSecurityConfigManager;
@@ -25,8 +26,8 @@ describe('UnifiedSecurityConfigManager', () => {
       const mockMCPConfig: OpenRouterConfig = {
         baseUrl: 'https://openrouter.ai/api/v1',
         apiKey: 'test-key',
-        defaultModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-        perplexityModel: 'pplx-7b-online',
+        defaultModel: getDefaultModel(),
+        researchModel: getServiceModel('research_query'),
         tools: {
           'vibe-task-manager': {
             allowedReadDirectory: '/test/read/directory',
@@ -57,8 +58,8 @@ describe('UnifiedSecurityConfigManager', () => {
       const mockMCPConfig: OpenRouterConfig = {
         baseUrl: 'https://openrouter.ai/api/v1',
         apiKey: 'test-key',
-        defaultModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-        perplexityModel: 'pplx-7b-online',
+        defaultModel: getDefaultModel(),
+        researchModel: getServiceModel('research_query'),
         tools: {},
         config: {},
         llm_mapping: {}
@@ -81,8 +82,8 @@ describe('UnifiedSecurityConfigManager', () => {
       const mockMCPConfig: OpenRouterConfig = {
         baseUrl: 'https://openrouter.ai/api/v1',
         apiKey: 'test-key',
-        defaultModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-        perplexityModel: 'pplx-7b-online',
+        defaultModel: getDefaultModel(),
+        researchModel: getServiceModel('research_query'),
         tools: {
           'vibe-task-manager': {
             allowedReadDirectory: '/test/read',
@@ -117,8 +118,8 @@ describe('UnifiedSecurityConfigManager', () => {
       const mockMCPConfig: OpenRouterConfig = {
         baseUrl: 'https://openrouter.ai/api/v1',
         apiKey: 'test-key',
-        defaultModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-        perplexityModel: 'pplx-7b-online',
+        defaultModel: getDefaultModel(),
+        researchModel: getServiceModel('research_query'),
         tools: {
           'vibe-task-manager': {
             allowedReadDirectory: '/allowed/read',
@@ -157,8 +158,8 @@ describe('UnifiedSecurityConfigManager', () => {
       const mockMCPConfig: OpenRouterConfig = {
         baseUrl: 'https://openrouter.ai/api/v1',
         apiKey: 'test-key',
-        defaultModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-        perplexityModel: 'pplx-7b-online',
+        defaultModel: getDefaultModel(),
+        researchModel: getServiceModel('research_query'),
         tools: {
           'vibe-task-manager': {
             allowedReadDirectory: '/test/read',

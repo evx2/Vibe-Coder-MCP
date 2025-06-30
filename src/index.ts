@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import path from 'path'; // Ensure path is imported
 import { fileURLToPath } from 'url'; // Needed for ES Module path resolution
 import logger from "./logger.js";
+import { getDefaultModel, getServiceModel } from './config/model-config.js';
 
 // Initialize critical imports with error handling
 let initializeToolEmbeddings: any = null;
@@ -345,8 +346,8 @@ async function initializeApp() {
         openRouterConfig = {
             baseUrl: process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1",
             apiKey: process.env.OPENROUTER_API_KEY || "",
-            defaultModel: process.env.DEFAULT_MODEL || "deepseek/deepseek-r1-0528-qwen3-8b:free",
-            perplexityModel: process.env.PERPLEXITY_MODEL || "perplexity/sonar-deep-research",
+            defaultModel: getDefaultModel(),
+            researchModel: getServiceModel('research_query_generation'),
             llm_mapping: JSON.parse(JSON.stringify(llmMapping))
         };
 
@@ -361,8 +362,8 @@ async function initializeApp() {
         openRouterConfig = {
             baseUrl: "https://openrouter.ai/api/v1",
             apiKey: "",
-            defaultModel: "deepseek/deepseek-r1-0528-qwen3-8b:free",
-            perplexityModel: "perplexity/sonar-deep-research",
+            defaultModel: getDefaultModel(),
+            researchModel: getServiceModel('research_query_generation'),
             llm_mapping: {}
         };
     }

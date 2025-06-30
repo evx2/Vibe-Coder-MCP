@@ -226,8 +226,8 @@ describe('Configuration System', () => {
       const validConfig = {
         llm: {
           llm_mapping: {
-            'default_generation': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-            'task_decomposition': 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+            'default_generation': getServiceModel('default_generation'),
+            'task_decomposition': getServiceModel('task_decomposition')
           }
         },
         mcp: {

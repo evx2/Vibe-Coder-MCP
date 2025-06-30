@@ -3,17 +3,18 @@ import { OpenRouterConfig } from '../types/workflow.js';
 import logger from '../logger.js';
 import { ApiError, ParsingError, AppError, ConfigurationError } from './errors.js'; // Import custom errors
 import { selectModelForTask } from './configLoader.js'; // Import the new utility
+import { getDefaultModel, getServiceModel } from '../config/model-config.js';
 
 /**
  * Performs a single research query using the configured Perplexity model.
  * @param query The research query string.
- * @param config OpenRouter configuration containing the specific perplexityModel name.
+ * @param config OpenRouter configuration containing the specific researchModel name.
  * @returns The research result content as a string.
  * @throws Error if the API call fails or returns no content.
  */
 export async function performResearchQuery(query: string, config: OpenRouterConfig): Promise<string> {
   const logicalTaskName = 'research_query';
-  logger.debug({ query, model: config.perplexityModel }, "Performing Perplexity research query"); // Keep original log for context
+  logger.debug({ query, model: config.researchModel }, "Performing Perplexity research query"); // Keep original log for context
 
   // Check for API key first
   if (!config.apiKey) {
@@ -21,8 +22,8 @@ export async function performResearchQuery(query: string, config: OpenRouterConf
   }
 
   // Select the model using the utility function
-  const defaultModel = config.perplexityModel || "perplexity/sonar-deep-research"; // Use configured perplexity model as default
-  const modelToUse = selectModelForTask(config, logicalTaskName, defaultModel);
+  // Switch to the new getServiceModel centralized method
+  const modelToUse = getServiceModel("research_query_generation");
 
   try {
     const response = await axios.post(

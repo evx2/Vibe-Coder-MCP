@@ -96,8 +96,8 @@ describe('Artifact Handlers', () => {
       config: {
         baseUrl: 'https://openrouter.ai/api/v1',
         apiKey: 'test-key',
-        defaultModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-        perplexityModel: 'perplexity/llama-3.1-sonar-small-128k-online',
+        defaultModel: getDefaultModel(),
+        researchModel: getServiceModel('research_query_fast'),
         llm_mapping: {}
       },
       taskManagerConfig: {
@@ -110,7 +110,7 @@ describe('Artifact Handlers', () => {
         cacheTTL: 3600,
         llm: {
           provider: 'openrouter',
-          model: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
+          model: getDefaultModel(),
           temperature: 0.7,
           maxTokens: 4000,
           llm_mapping: {}

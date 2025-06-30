@@ -18,6 +18,7 @@ import {
   type MetaPrompt,
   type TaskType
 } from '../../../types/context-curator.js';
+import { getFallbackModel, getServiceModel } from '../../../../../config/model-config.js';
 
 describe('Context Curator Type Definitions', () => {
   describe('TaskType Schema', () => {
@@ -300,7 +301,7 @@ describe('Context Curator Type Definitions', () => {
         llmIntegration: {
           maxRetries: 3,
           timeoutMs: 30000,
-          fallbackModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+          fallbackModel: getFallbackModel()
         }
       };
 

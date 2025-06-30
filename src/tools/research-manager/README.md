@@ -82,7 +82,7 @@ Add this configuration to your `claude_desktop_config.json` file:
 - **`LOG_LEVEL`**: Logging verbosity for research operations
 
 #### Research-Specific Settings
-- **`RESEARCH_MODEL`**: Perplexity model to use (default: `perplexity/sonar-deep-research`)
+- **`RESEARCH_MODEL`**: Research model to use (default: getServiceModel('research_query_deep'))
 - **`RESEARCH_TIMEOUT_MS`**: Research API timeout in milliseconds (default: 30000)
 - **`RESEARCH_MAX_RETRIES`**: Maximum retry attempts for failed research calls (default: 3)
 - **`RESEARCH_ENHANCEMENT_MODEL`**: LLM model for research enhancement (default: from llm_config.json)
@@ -94,9 +94,9 @@ The Research Manager uses models defined in `llm_config.json`:
 ```json
 {
   "llm_mapping": {
-    "research_query": "perplexity/sonar-deep-research",
-    "research_enhancement": "deepseek/deepseek-r1-0528-qwen3-8b:free",
-    "research_structuring": "deepseek/deepseek-r1-0528-qwen3-8b:free"
+    "research_query": getServiceModel('research_query_generation'),
+    "research_enhancement": getServiceModel('research_enhancement'),
+    "research_structuring": getServiceModel('research_structuring')
   }
 }
 ```
@@ -151,7 +151,7 @@ When invoked, this tool performs the following steps:
 
 1. **Input Validation:** The incoming query parameter is validated. If invalid, a `ValidationError` is returned.
 2. **Research Phase (Primary Function):**
-   * Calls the `researchHelper.performResearchQuery` utility, which uses the configured Perplexity model (`perplexity/sonar-small-online` or similar).
+   * Calls the `researchHelper.performResearchQuery` utility, which uses the configured research model (`perplexity/sonar-small-online` or similar).
     * If the API call fails, an `ApiError` is returned.
 3. **Enhancement Phase:**
    * Calls the `performDirectLlmCall` utility (`src/utils/llmHelper.ts`) with the raw research findings and a research-specific system prompt.
@@ -340,7 +340,7 @@ OPENROUTER_API_KEY=your-actual-api-key-here
 // Check llm_config.json
 {
   "llm_mapping": {
-    "research_enhancement": "deepseek/deepseek-r1-0528-qwen3-8b:free"
+    "research_enhancement": getServiceModel('research_enhancement')
   }
 }
 ```
@@ -367,9 +367,9 @@ Configure different Perplexity models for different research types:
 ```json
 {
   "llm_mapping": {
-    "research_query_fast": "perplexity/sonar-small-online",
-    "research_query_deep": "perplexity/sonar-deep-research",
-    "research_query_academic": "perplexity/sonar-huge-online"
+    "research_query_fast": getServiceModel('research_query_fast'),
+    "research_query_deep": getServiceModel('research_query_deep'),
+    "research_query_academic": getServiceModel('research_query_academic')
   }
 }
 ```

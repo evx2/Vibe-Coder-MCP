@@ -15,7 +15,7 @@ const createMockConfig = () => ({
     apiKey: 'test-key',
     model: 'test-model',
     defaultModel: 'test-default',
-    perplexityModel: 'test-perplexity'
+    researchModel: 'test-research'
   }
 });
 
@@ -163,7 +163,7 @@ vi.mock('../../utils/config-loader.js', () => ({
       apiKey: 'test-key',
       model: 'test-model',
       defaultModel: 'test-default',
-      perplexityModel: 'test-perplexity'
+      researchModel: 'test-research'
     }
   }),
   getVibeTaskManagerOutputDir: vi.fn().mockReturnValue('/test/output')
@@ -179,7 +179,7 @@ describe('Session Persistence Integration Tests', () => {
       apiKey: 'test-key',
       model: 'test-model',
       defaultModel: 'test-default',
-      perplexityModel: 'test-perplexity'
+      researchModel: 'test-research'
     };
 
     decompositionService = new DecompositionService(mockConfig);

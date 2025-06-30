@@ -4,6 +4,7 @@
  */
 
 import { z } from 'zod';
+import { getFallbackModel, getServiceModel } from '../../../config/model-config.js';
 
 /**
  * Task type enumeration for different development scenarios
@@ -307,7 +308,7 @@ export const contextCuratorConfigSchema = z.object({
     /** Timeout for LLM calls in milliseconds */
     timeoutMs: z.number().min(1000).default(30000),
     /** Fallback model if primary fails */
-    fallbackModel: z.string().default('deepseek/deepseek-r1-0528-qwen3-8b:free')
+    fallbackModel: z.string().default(getFallbackModel())
   }).default({})
 }).default({});
 

@@ -23,12 +23,12 @@ describe('Decomposition Natural Language Workflow Integration', () => {
     mockConfig = {
       baseUrl: 'https://openrouter.ai/api/v1',
       apiKey: 'test-key',
-      defaultModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-      perplexityModel: 'perplexity/sonar-deep-research',
+      defaultModel: getDefaultModel(),
+      researchModel: getServiceModel('research_query_generation'),
       llm_mapping: {
-        intent_recognition: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-        task_decomposition: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-        default_generation: 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+        intent_recognition: getServiceModel('intent_recognition'),
+        task_decomposition: getServiceModel('context_curator_task_decomposition'),
+        default_generation: getServiceModel('default_generation')
       }
     };
   });

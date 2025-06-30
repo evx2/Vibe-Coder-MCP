@@ -33,7 +33,7 @@ dotenv.config();
 //   baseUrl: process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1",
 //   apiKey: process.env.OPENROUTER_API_KEY || "",
 //   defaultModel: process.env.DEFAULT_MODEL || "google/gemini-2.0-flash-001",
-//   perplexityModel: process.env.PERPLEXITY_MODEL || "perplexity/sonar-deep-research"
+//   researchModel: process.env.PERPLEXITY_MODEL || getServiceModel('research_query_deep')
 // };
 
 /**

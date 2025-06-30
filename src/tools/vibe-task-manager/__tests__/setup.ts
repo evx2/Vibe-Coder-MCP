@@ -16,7 +16,7 @@ if (!process.env.OPENROUTER_API_KEY) {
 
 if (!process.env.DEFAULT_MODEL) {
   // Set default if not provided
-  process.env.DEFAULT_MODEL = 'deepseek/deepseek-r1-0528-qwen3-8b:free';
+  process.env.DEFAULT_MODEL = getDefaultModel();
 }
 
 if (!process.env.OPENROUTER_BASE_URL) {

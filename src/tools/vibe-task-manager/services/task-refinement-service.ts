@@ -6,6 +6,7 @@ import { getVibeTaskManagerConfig } from '../utils/config-loader.js';
 import { ProjectAnalyzer } from '../utils/project-analyzer.js';
 import { FileOperationResult } from '../utils/file-utils.js';
 import logger from '../../../logger.js';
+import { getDefaultModel, getServiceModel } from '../../../config/model-config.js';
 
 /**
  * Task refinement parameters
@@ -100,8 +101,8 @@ export class TaskRefinementService {
         baseUrl: 'https://openrouter.ai/api/v1',
         apiKey: process.env.OPENROUTER_API_KEY || '',
         model: 'anthropic/claude-3-sonnet',
-        defaultModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-        perplexityModel: 'llama-3.1-sonar-small-128k-online'
+        defaultModel: getDefaultModel(),
+        researchModel: getServiceModel('research_query_generation')
       };
       this.decompositionService = new DecompositionService(openRouterConfig);
     } catch (error) {

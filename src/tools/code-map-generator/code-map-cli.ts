@@ -138,7 +138,7 @@ async function runCodeMap(params: Record<string, unknown>, config: CodeMapGenera
         baseUrl: '',
         apiKey: '',
         defaultModel: '',
-        perplexityModel: '',
+        researchModel: '',
         llm_mapping: {}
       }, // Minimal OpenRouterConfig
       { sessionId: 'cli-session', transportType: 'stdio' }, // Mock context
@@ -306,7 +306,7 @@ async function main(): Promise<void> {
       baseUrl: '',
       apiKey: '',
       defaultModel: '',
-      perplexityModel: '',
+      researchModel: '',
       llm_mapping: {},
       config: {
         'map-codebase': config

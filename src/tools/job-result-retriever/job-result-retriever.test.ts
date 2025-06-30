@@ -36,7 +36,7 @@ describe('getJobResult Tool Executor', () => {
       baseUrl: 'mock-url',
       apiKey: 'mock-key',
       defaultModel: 'mock-default',
-      perplexityModel: 'mock-perplexity',
+      researchModel: 'mock-research',
       // llm_mapping is optional
   };
   const mockContext = undefined; // Context is not used by this tool

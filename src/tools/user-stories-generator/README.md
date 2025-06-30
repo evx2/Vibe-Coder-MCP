@@ -95,9 +95,9 @@ The User Stories Generator uses models defined in `llm_config.json`:
 ```json
 {
   "llm_mapping": {
-    "user_stories_research": "perplexity/sonar-deep-research",
-    "user_stories_generation": "deepseek/deepseek-r1-0528-qwen3-8b:free",
-    "acceptance_criteria_generation": "deepseek/deepseek-r1-0528-qwen3-8b:free"
+    "user_stories_research": getServiceModel('research_query_deep'),
+    "user_stories_generation": getServiceModel('user_stories_generation'),
+    "acceptance_criteria_generation": getServiceModel('acceptance_criteria_generation')
   }
 }
 ```
@@ -136,7 +136,7 @@ When invoked, this tool performs the following steps:
      * User personas and stakeholders
      * Common user workflows and use cases
      * User experience expectations and pain points
-   * Executes these queries in parallel using the configured Perplexity model (`perplexity/sonar-deep-research` via `performResearchQuery`).
+   * Executes these queries in parallel using the configured research model (`perplexity/sonar-deep-research` via `performResearchQuery`).
    * Aggregates the research results into a structured context block.
 3. **Prompt Assembly:** Combines the original product description and the gathered research context into a comprehensive prompt for the main generation model.
 4. **Generation Phase:**

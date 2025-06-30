@@ -95,9 +95,9 @@ The Rules Generator uses models defined in `llm_config.json`:
 ```json
 {
   "llm_mapping": {
-    "rules_research": "perplexity/sonar-deep-research",
-    "rules_generation": "deepseek/deepseek-r1-0528-qwen3-8b:free",
-    "rules_examples": "deepseek/deepseek-r1-0528-qwen3-8b:free"
+    "rules_research": getServiceModel('research_query_generation'),
+    "rules_generation": getServiceModel('rules_generation'),
+    "rules_examples": getServiceModel('rules_examples')
   }
 }
 ```
@@ -138,7 +138,7 @@ When invoked, this tool performs the following steps:
      * Best development practices and coding standards related to the product
      * Specific rules and guidelines for the requested categories (or common categories if none specified)
      * Modern architecture patterns and file organization for the detected product type
-   * Executes these queries in parallel using the configured Perplexity model (`perplexity/sonar-deep-research` via `performResearchQuery`).
+   * Executes these queries in parallel using the configured research model (`perplexity/sonar-deep-research` via `performResearchQuery`).
    * Aggregates the research results into a structured context block.
 3. **Prompt Assembly:** Combines the original inputs (product description, user stories, requested rule categories) and the gathered research context into a comprehensive prompt for the main generation model.
 4. **Generation Phase:**

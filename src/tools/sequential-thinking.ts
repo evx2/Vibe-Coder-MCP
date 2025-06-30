@@ -6,6 +6,7 @@ import { sequentialThoughtSchema, SequentialThought as ZodSequentialThought } fr
 // Removed ValidationIssue from import as it's no longer exported/used here
 import { ApiError, ParsingError, ValidationError, AppError, FallbackError } from '../utils/errors.js';
 import { selectModelForTask } from '../utils/configLoader.js'; // Import the new utility
+import { getDefaultModel, getServiceModel } from '../config/model-config.js';
 
 // Configure axios with SSL settings to handle SSL/TLS issues (same as llmHelper.ts)
 const httpsAgent = new https.Agent({
@@ -249,8 +250,8 @@ export async function getNextThought( // Added export back
   // Removed outer declaration: let rawContent: string | undefined;
 
   // Select the model using the utility function
-  const defaultModel = config.defaultModel || "deepseek/deepseek-r1-0528-qwen3-8b:free"; // Ensure a default model exists
-  const modelToUse = selectModelForTask(config, logicalTaskName, defaultModel);
+  // Switch to the new defaultmodel centralized method
+  const modelToUse = getServiceModel(logicalTaskName);
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try { // Inner try for each attempt

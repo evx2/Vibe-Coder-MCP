@@ -15,6 +15,7 @@ import { AppError, ValidationError } from '../../../../utils/errors.js';
 import { getVibeTaskManagerConfig } from '../../utils/config-loader.js';
 import { AtomicTask } from '../../types/task.js';
 import logger from '../../../../logger.js';
+import { getDefaultModel, getServiceModel } from '../../../../config/model-config.js';
 
 /**
  * Resolve epic ID for a task using epic context resolver
@@ -198,8 +199,8 @@ function createTaskDecomposeCommand(): Command {
           baseUrl: 'https://openrouter.ai/api/v1',
           apiKey: process.env.OPENROUTER_API_KEY || '',
           model: 'anthropic/claude-3-sonnet',
-          defaultModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-          perplexityModel: 'llama-3.1-sonar-small-128k-online'
+          defaultModel: getDefaultModel(),
+          researchModel: getServiceModel('research_query_generation')
         };
 
         const decompositionService = new DecompositionService(openRouterConfig);
@@ -380,8 +381,8 @@ function createProjectDecomposeCommand(): Command {
           baseUrl: 'https://openrouter.ai/api/v1',
           apiKey: process.env.OPENROUTER_API_KEY || '',
           model: 'anthropic/claude-3-sonnet',
-          defaultModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-          perplexityModel: 'llama-3.1-sonar-small-128k-online'
+          defaultModel: getDefaultModel(),
+          researchModel: getServiceModel('research_query_generation')
         };
 
         const decompositionService = new DecompositionService(openRouterConfig);

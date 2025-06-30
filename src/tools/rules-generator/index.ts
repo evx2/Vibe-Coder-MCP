@@ -222,7 +222,7 @@ export const generateRules: ToolExecutor = async (
 
       // Execute research queries in parallel using Perplexity
       const researchResults = await Promise.allSettled([
-        performResearchQuery(query1, config), // Uses config.perplexityModel (perplexity/sonar-deep-research)
+        performResearchQuery(query1, config), // Uses config.researchModel (perplexity/sonar-deep-research)
         performResearchQuery(query2, config),
         performResearchQuery(query3, config)
       ]);

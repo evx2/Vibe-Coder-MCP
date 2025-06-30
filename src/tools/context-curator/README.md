@@ -286,10 +286,10 @@ The Context Curator uses configurable LLM models for intelligent analysis:
 ```json
 {
   "llm_mapping": {
-    "intent_analysis": "deepseek/deepseek-r1-0528-qwen3-8b:free",
-    "file_discovery": "deepseek/deepseek-r1-0528-qwen3-8b:free",
-    "relevance_scoring": "deepseek/deepseek-r1-0528-qwen3-8b:free",
-    "meta_prompt_generation": "deepseek/deepseek-r1-0528-qwen3-8b:free"
+    'intent_analysis': getServiceModel('intent_analysis'),
+    'file_discovery': getServiceModel('context_curator_file_discovery'),
+    "relevance_scoring": getServiceModel('relevance_scoring'),
+    "meta_prompt_generation": getServiceModel('meta_prompt_generation')
   }
 }
 ```

@@ -29,9 +29,9 @@ describe('Fullstack Starter Kit Generator - Real LLM Integration', () => {
     config = {
       apiKey: process.env.OPENROUTER_API_KEY || 'test-key',
       llm_mapping: {
-        'fullstack_starter_kit_module_selection': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-        'fullstack_starter_kit_dynamic_yaml_module_generation': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-        'research_query': 'perplexity/sonar-small-online'
+        'fullstack_starter_kit_module_selection': getServiceModel('fullstack_starter_kit_module_selection'),
+        'fullstack_starter_kit_dynamic_yaml_module_generation': getServiceModel('fullstack_starter_kit_dynamic_yaml_module_generation'),
+        'research_query': getServiceModel('research_query_generation')
       }
     };
 

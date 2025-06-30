@@ -20,8 +20,8 @@ describe('Performance Optimization', () => {
     mockConfig = {
       llm: {
         llm_mapping: {
-          'task_decomposition': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-          'default_generation': 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+          'task_decomposition': getServiceModel('task_decomposition'),
+          'default_generation': getDefaultModel()
         }
       },
       mcp: {

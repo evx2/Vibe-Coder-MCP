@@ -13,6 +13,7 @@ import { getTimeoutManager } from '../utils/timeout-manager.js';
 import { createErrorContext, ValidationError } from '../utils/enhanced-errors.js';
 import { InitializationMonitor } from '../../../utils/initialization-monitor.js';
 import logger from '../../../logger.js';
+import { getDefaultModel, getServiceModel } from '../../../config/model-config.js';
 
 /**
  * Agent activity types that require extended heartbeat tolerance
@@ -152,8 +153,8 @@ export class WorkflowAwareAgentManager extends EventEmitter {
         baseUrl: 'https://openrouter.ai/api/v1',
         apiKey: process.env.OPENROUTER_API_KEY || '',
         model: 'anthropic/claude-3-sonnet',
-        defaultModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-        perplexityModel: 'llama-3.1-sonar-small-128k-online'
+        defaultModel: getDefaultModel(),
+        researchModel: getServiceModel('research_query_generation')
       };
       this.decompositionService = DecompositionService.getInstance(openRouterConfig);
     } catch (error) {

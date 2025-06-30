@@ -5,7 +5,7 @@ export interface OpenRouterConfig {
   baseUrl: string;
   apiKey: string;
   defaultModel: string;
-  perplexityModel: string;
+  researchModel: string;
   llm_mapping?: Record<string, string>; // Optional: Mapping of logical task names to model strings
 
   // Tool-specific configurations

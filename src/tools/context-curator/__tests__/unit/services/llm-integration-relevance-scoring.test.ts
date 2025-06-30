@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { ContextCuratorLLMService } from '../../../services/llm-integration.js';
+import { getFallbackModel, getServiceModel } from '../../../config/model-config.js';
 import type { IntentAnalysisResult, FileDiscoveryResult, RelevanceScoringResult } from '../../../types/llm-tasks.js';
 
 // Mock the LLM helper
@@ -17,7 +18,7 @@ vi.mock('../../../utils/json-preprocessing.js', () => ({
 vi.mock('../../../services/config-loader.js', () => ({
   ContextCuratorConfigLoader: {
     getInstance: vi.fn(() => ({
-      getLLMModel: vi.fn(() => 'deepseek/deepseek-r1-0528-qwen3-8b:free')
+      getLLMModel: vi.fn(() => getFallbackModel())
     }))
   }
 }));
@@ -40,8 +41,8 @@ describe('ContextCuratorLLMService - Relevance Scoring with Retry and Chunking',
   const mockConfig = {
     baseUrl: 'https://openrouter.ai/api/v1',
     apiKey: 'test-key',
-    defaultModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-    perplexityModel: 'perplexity/sonar-deep-research',
+    defaultModel: getDefaultModel(),
+    researchModel: getServiceModel('research_query_generation'),
     llm_mapping: {}
   };
 

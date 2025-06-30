@@ -6,6 +6,7 @@
 import { PerformanceConfig } from '../types/config.js';
 import { createErrorContext, ValidationError } from './enhanced-errors.js';
 import logger from '../../../logger.js';
+import { getFallbackModel, getServiceModel } from '../../../config/model-config.js';
 
 /**
  * Environment variable configuration mapping
@@ -312,7 +313,7 @@ export const ENVIRONMENT_VARIABLES: Record<string, EnvironmentVariableConfig> = 
   // LLM Model Fallback
   VIBE_DEFAULT_LLM_MODEL: {
     key: 'VIBE_DEFAULT_LLM_MODEL',
-    defaultValue: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
+    defaultValue: getFallbackModel(),
     type: 'string',
     required: false,
     description: 'Default LLM model to use as fallback'

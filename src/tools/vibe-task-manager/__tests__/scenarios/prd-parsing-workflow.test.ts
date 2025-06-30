@@ -35,7 +35,7 @@ describe('📋 PRD Parsing Workflow - Complete Scenario', () => {
     const openRouterConfig = {
       baseUrl: process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1',
       apiKey: process.env.OPENROUTER_API_KEY || '',
-      defaultModel: process.env.DEFAULT_MODEL || 'deepseek/deepseek-r1-0528-qwen3-8b:free',
+      defaultModel: getDefaultModel(),
       llm_mapping: config?.llm?.llm_mapping || {}
     };
 

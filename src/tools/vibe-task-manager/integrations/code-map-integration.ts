@@ -13,6 +13,7 @@ import { executeCodeMapGeneration } from '../../code-map-generator/index.js';
 import type { CodeMapGeneratorConfig } from '../../code-map-generator/types.js';
 import type { ProjectContext } from '../types/project-context.js';
 import { getVibeTaskManagerConfig } from '../utils/config-loader.js';
+import { getDefaultModel, getServiceModel } from '../../../config/model-config.js';
 
 /**
  * Code map information
@@ -245,8 +246,8 @@ export class CodeMapIntegrationService {
       const openRouterConfig = {
         baseUrl: process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1',
         apiKey: process.env.OPENROUTER_API_KEY || '',
-        defaultModel: process.env.DEFAULT_MODEL || 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-        perplexityModel: process.env.PERPLEXITY_MODEL || 'perplexity/llama-3.1-sonar-small-128k-online',
+        defaultModel: getDefaultModel(),
+        researchModel: getServiceModel("research_query_generation"),
         llm_mapping: vibeConfig?.llm?.llm_mapping || {}
       };
 

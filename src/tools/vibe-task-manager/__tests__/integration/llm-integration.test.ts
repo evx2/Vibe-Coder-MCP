@@ -85,8 +85,8 @@ describe('Vibe Task Manager - LLM Integration Tests', () => {
     const openRouterConfig = {
       baseUrl: process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1',
       apiKey: process.env.OPENROUTER_API_KEY || '',
-      defaultModel: process.env.DEFAULT_MODEL || 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-      perplexityModel: process.env.PERPLEXITY_MODEL || 'perplexity/llama-3.1-sonar-small-128k-online',
+      defaultModel: getDefaultModel(),
+      researchModel: process.env.PERPLEXITY_MODEL || getServiceModel('research_query_fast'),
       llm_mapping: config?.llm?.llm_mapping || {}
     };
 

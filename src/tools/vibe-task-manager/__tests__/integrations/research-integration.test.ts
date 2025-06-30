@@ -51,8 +51,8 @@ describe('ResearchIntegration', () => {
     mockGetConfig.mockResolvedValue({
       llm: {
         model: 'anthropic/claude-3-sonnet',
-        defaultModel: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-        perplexityModel: 'perplexity/sonar-deep-research'
+        defaultModel: getDefaultModel(),
+        researchModel: getServiceModel('research_query_deep')
       }
     });
 
@@ -177,7 +177,7 @@ This research provides comprehensive guidance for implementing secure authentica
       expect(mockPerformResearchQuery).toHaveBeenCalledWith(
         request.query,
         expect.objectContaining({
-          perplexityModel: 'perplexity/sonar-deep-research'
+          researchModel: getServiceModel('research_query_deep')
         })
       );
       expect(mockPerformFormatAwareLlmCall).toHaveBeenCalled();

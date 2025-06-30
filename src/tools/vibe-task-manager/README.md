@@ -178,12 +178,12 @@ The system uses configurable LLM models defined in `llm_config.json`:
 ```json
 {
   "llm_mapping": {
-    "task_decomposition": "deepseek/deepseek-r1-0528-qwen3-8b:free",
-    "atomic_task_detection": "deepseek/deepseek-r1-0528-qwen3-8b:free",
-    "intent_recognition": "deepseek/deepseek-r1-0528-qwen3-8b:free",
-    "task_refinement": "deepseek/deepseek-r1-0528-qwen3-8b:free",
-    "dependency_graph_analysis": "deepseek/deepseek-r1-0528-qwen3-8b:free",
-    "agent_coordination": "deepseek/deepseek-r1-0528-qwen3-8b:free"
+    "task_decomposition": getServiceModel('task_decomposition'),
+    "atomic_task_detection": getServiceModel('atomic_task_detection'),
+    "intent_recognition": getServiceModel('intent_recognition'),
+    "task_refinement": getServiceModel('task_refinement'),
+    "dependency_graph_analysis": getServiceModel('dependency_graph_analysis'),
+    "agent_coordination": getServiceModel('agent_coordination')
   }
 }
 ```

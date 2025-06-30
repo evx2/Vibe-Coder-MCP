@@ -3,6 +3,7 @@ import { readFile } from 'fs/promises';
 import { pathExists } from 'fs-extra';
 import logger from '../../../logger.js';
 import { getProjectRoot } from '../../code-map-generator/utils/pathUtils.enhanced.js';
+import { getFallbackModel, getServiceModel } from '../../../config/model-config.js';
 import { 
   ContextCuratorConfig, 
   contextCuratorConfigSchema,
@@ -184,7 +185,7 @@ export class ContextCuratorConfigLoader {
    */
   getLLMModel(operation: string): string {
     if (!this.llmConfig) {
-      return 'deepseek/deepseek-r1-0528-qwen3-8b:free'; // fallback
+      return getFallbackModel();
     }
 
     // Context Curator specific operations
@@ -202,7 +203,7 @@ export class ContextCuratorConfigLoader {
     return this.llmConfig.llm_mapping[prefixedOperation] ||
            this.llmConfig.llm_mapping[operation] ||
            this.llmConfig.llm_mapping['default_generation'] ||
-           'deepseek/deepseek-r1-0528-qwen3-8b:free';
+           getFallbackModel();
   }
 
   /**
